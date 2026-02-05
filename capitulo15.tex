@@ -1,0 +1,42 @@
+\chapter{Semántica de Movimiento}
+
+\section{Optimización con Move}
+Copiar objetos grandes es lento. Moverlos (robar sus recursos) es instantáneo.
+Usamos \texttt{std::move} y referencias R-value (\texttt{\&\&}).
+
+\begin{codebox}
+\begin{lstlisting}
+#include <utility>
+#include <string>
+#include <iostream>
+
+int main() {
+    std::string a = "Texto muy largo...";
+    
+    // Mover: 'b' roba el contenido de 'a'
+    std::string b = std::move(a);
+    
+    std::cout << "A: " << a << "\n"; // A esta vacio
+    std::cout << "B: " << b << "\n"; // B tiene el texto
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Reglas de Oro}
+\begin{itemize}
+    \item Úsalo con objetos pesados (vectores, strings).
+    \item No uses un objeto después de haberlo movido.
+    \item Los tipos primitivos (\texttt{int}, \texttt{double}) se copian, no se mueven.
+\end{itemize}
+
+\newpage
+\section{Evaluación Profesional}
+
+\subsection{Ejercicios}
+\begin{enumerate}
+    \item **Benchmark:** Mide el tiempo de copiar vs mover un vector gigante.
+    \item **Clase Movible:** Implementa un Constructor de Movimiento.
+    \item **Unique Ptr:** Intenta meter un \texttt{unique\_ptr} en un vector usando \texttt{push\_back(std::move(ptr))}.
+    \item **Swap:** Crea una función swap usando move.
+    \item **Retorno:** ¿Por qué no debemos hacer \texttt{return std::move(local)}? (Investiga RVO).
+\end{enumerate}

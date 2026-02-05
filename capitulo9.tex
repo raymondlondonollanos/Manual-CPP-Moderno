@@ -1,0 +1,86 @@
+\chapter{Punteros y Gestión de Memoria}
+
+\section{La Verdad sobre la Memoria}
+Toda variable vive en una dirección de memoria. Un **puntero** es simplemente una variable que guarda esa dirección.
+
+\subsection{Punteros Crudos (Raw Pointers)}
+Son la forma antigua de trabajar. Potentes pero peligrosos.
+
+\begin{codebox}
+\begin{lstlisting}
+int x = 10;
+int* ptr = &x; // & obtiene la direccion
+
+std::cout << ptr;  // Imprime direccion
+std::cout << *ptr; // Imprime valor (10)
+\end{lstlisting}
+\end{codebox}
+
+\section{Memoria Dinámica: Heap vs Stack}
+\begin{itemize}
+    \item \textbf{Stack (Pila):} Memoria automática. Las variables se borran al cerrar la llave \texttt{\}}.
+    \item \textbf{Heap (Montón):} Memoria manual. Las variables viven hasta que tú las borras.
+\end{itemize}
+
+\section{C++ Moderno: Smart Pointers}
+En el mundo profesional, usamos punteros inteligentes que se borran solos (RAII).
+
+\subsection{1. std::unique\_ptr}
+Propiedad exclusiva. Solo un dueño a la vez. Cuando el puntero sale de ámbito, la memoria se libera.
+
+\begin{codebox}
+\begin{lstlisting}
+#include <memory>
+
+void nivel() {
+    // Fabrica un unique_ptr
+    std::unique_ptr<int> boss = std::make_unique<int>(500);
+    
+    // Al cerrar la funcion, 'boss' se destruye solo.
+}
+\end{lstlisting}
+\end{codebox}
+
+\subsection{2. std::shared\_ptr}
+Propiedad compartida. La memoria solo se libera cuando el **último** puntero deja de apuntar al objeto.
+
+\newpage
+\section{Evaluación y Práctica Profesional}
+
+\subsection{Conceptos de Ingeniería (5 Preguntas)}
+\begin{enumerate}
+    \item \textbf{RAII:} Explica qué es "Resource Acquisition Is Initialization".
+    \item \textbf{Dangling Pointer:} ¿Qué es un puntero colgante?
+    \item \textbf{Memory Leak:} Describe cómo se produce una fuga de memoria.
+    \item \textbf{Unique vs Shared:} ¿Cuándo usarías un \texttt{shared\_ptr} en lugar de un \texttt{unique\_ptr}?
+    \item \textbf{Nullptr:} ¿Por qué usamos \texttt{nullptr} en lugar de NULL?
+\end{enumerate}
+
+\subsection{Retos de Desarrollo (10 Ejercicios)}
+\begin{enumerate}
+    \item **Fábrica:** Crea una función que devuelva un \texttt{unique\_ptr} de entero.
+    \item **Intercambio:** Usa punteros para intercambiar el valor de dos variables.
+    \item **Arreglo Dinámico:** Crea un array en el Heap usando smart pointers.
+    \item **Transferencia:** Intenta copiar un \texttt{unique\_ptr} (fallará) y luego muévelo con \texttt{std::move}.
+    \item **Lista Enlazada:** Implementa un nodo que apunte al siguiente usando \texttt{unique\_ptr}.
+    \item **Weak Ptr:** Investiga para qué sirve \texttt{std::weak\_ptr}.
+    \item **Custom Deleter:** Usa un smart pointer para gestionar un archivo.
+    \item **Polimorfismo:** Crea un vector de \texttt{unique\_ptr} a Animales.
+    \item **Referencia:** Pasa un smart pointer a una función por referencia.
+    \item **Debug:** Crea una clase que imprima mensajes en su constructor y destructor.
+\end{enumerate}
+
+\subsection{Revisión de Código}
+\begin{codebox}
+\begin{lstlisting}
+void leak() {
+    int* e = new int(10);
+    // Error: Salimos sin hacer delete
+}
+
+int* obtener() {
+    int local = 10;
+    return &local; // Error: Retorna direccion de variable muerta
+}
+\end{lstlisting}
+\end{codebox}

@@ -1,0 +1,84 @@
+\chapter{Concurrencia y Multithreading}
+
+\section{Hilos (Threads)}
+Por defecto, tu código corre en un solo núcleo. Con \texttt{std::thread}, podemos usar todos los núcleos del procesador a la vez.
+
+\begin{codebox}
+\begin{lstlisting}
+#include <thread>
+#include <iostream>
+
+void tarea() {
+    std::cout << "Hola desde el hilo secundario\n";
+}
+
+int main() {
+    // Lanzar hilo
+    std::thread t1(tarea);
+
+    // El main sigue ejecutando esto en paralelo...
+    std::cout << "Hola desde el Main\n";
+
+    // Esperar a que t1 termine (join)
+    t1.join(); 
+    return 0;
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{El Peligro: Race Conditions}
+Si dos hilos tocan la misma variable a la vez, ocurre un desastre. Necesitamos protección.
+
+\section{Mutex (El Candado)}
+\texttt{std::mutex} asegura que solo un hilo pase a la vez.
+
+\begin{codebox}
+\begin{lstlisting}
+#include <mutex>
+
+int contador = 0;
+std::mutex candado;
+
+void incrementar() {
+    for(int i=0; i<1000; ++i) {
+        // Bloquear acceso
+        candado.lock();
+        
+        contador++; // Zona critica protegida
+        
+        // Desbloquear
+        candado.unlock();
+    }
+}
+\end{lstlisting}
+\end{codebox}
+
+\subsection{std::lock\_guard (RAII)}
+Es mejor usar \texttt{lock\_guard} para no olvidar desbloquear.
+
+\begin{codebox}
+\begin{lstlisting}
+void incrementarSeguro() {
+    // Se bloquea al crear, se desbloquea solo al salir
+    std::lock_guard<std::mutex> guardia(candado);
+    contador++;
+}
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+\section{Evaluación Profesional}
+
+\subsection{Preguntas de Ingeniería}
+\begin{enumerate}
+    \item \textbf{Deadlock:} ¿Qué pasa si el Hilo A espera al Hilo B, y el Hilo B espera al Hilo A?
+    \item \textbf{Join vs Detach:} ¿Por qué es peligroso usar \texttt{detach()} si el hilo usa variables del main?
+    \item \textbf{Race Condition:} Define qué es una Condición de Carrera con tus propias palabras.
+\end{enumerate}
+
+\subsection{Retos}
+\begin{enumerate}
+    \item **Contador Compartido:** Lanza 10 hilos que sumen a una variable global protegida por mutex.
+    \item **Productor-Consumidor:** Un hilo agrega datos a una cola, otro los lee.
+    \item **Calculadora Paralela:** Divide un array gigante en 4 partes y suma cada parte en un hilo distinto.
+\end{enumerate}

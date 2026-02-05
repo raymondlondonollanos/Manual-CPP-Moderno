@@ -1,0 +1,61 @@
+\chapter{Control de Flujo: Decisiones y Bucles}
+
+\section{Toma de Decisiones (Condicionales)}
+El control de flujo permite que nuestro programa tome caminos diferentes.
+
+\subsection{La sentencia if / else}
+Evalúa una condición booleana (Verdadero/Falso).
+
+\begin{codebox}
+\begin{lstlisting}
+int edad = 18;
+
+if (edad >= 18) {
+    std::cout << "Acceso permitido.";
+} else if (edad > 12) {
+    std::cout << "Necesitas supervision.";
+} else {
+    std::cout << "Acceso denegado.";
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{La sentencia switch}
+Útil para comparar una variable contra múltiples valores fijos.
+
+\begin{codebox}
+\begin{lstlisting}
+int opcion = 1;
+switch (opcion) {
+    case 1: std::cout << "Opcion 1"; break;
+    case 2: std::cout << "Opcion 2"; break;
+    default: std::cout << "Nada"; break;
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Bucles (Loops)}
+
+\subsection{Bucle While}
+Repite mientras la condición sea verdadera.
+
+\begin{codebox}
+\begin{lstlisting}
+int i = 0;
+while (i < 5) {
+    std::cout << i << " ";
+    i++;
+}
+\end{lstlisting}
+\end{codebox}
+
+\subsection{Bucle For}
+El clásico para contar.
+
+\begin{codebox}
+\begin{lstlisting}
+for (int i = 0; i < 5; ++i) {
+    std::cout << "Iteracion: " << i << std::endl;
+}
+\end{lstlisting}
+\end{codebox}

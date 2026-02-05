@@ -1,0 +1,37 @@
+\chapter{Variables y Tipos de Datos}
+
+\section{¿Qué es una variable?}
+Una variable es un espacio en la memoria RAM donde guardamos un dato. En C++, debemos decir qué \textbf{tipo} de dato vamos a guardar.
+
+\section{Tipos Primitivos Básicos}
+
+\begin{itemize}
+    \item \textbf{int:} Números enteros (ej: 5, -10, 400).
+    \item \textbf{double:} Números con decimales (ej: 3.14, 9.99).
+    \item \textbf{char:} Un solo carácter (ej: 'a', 'Z').
+    \item \textbf{bool:} Verdadero o Falso (true/false).
+\end{itemize}
+
+\section{Declaración e Inicialización}
+En C++ Moderno (C++11 en adelante), recomendamos usar llaves para inicializar.
+
+\begin{codebox}
+\begin{lstlisting}
+int vidas{3};           // Correcto y moderno
+double precio = 99.90;  // Estilo clasico
+char letra{'A'};        
+bool esDeDia{true};
+\end{lstlisting}
+\end{codebox}
+
+\section{Entrada de Datos (cin)}
+Para leer lo que el usuario escribe, usamos \texttt{std::cin} con el operador de extracción \texttt{>{}>}.
+
+\begin{codebox}
+\begin{lstlisting}
+int edad;
+std::cout << "Introduce tu edad: ";
+std::cin >> edad;
+std::cout << "Tienes " << edad << " anios.";
+\end{lstlisting}
+\end{codebox}

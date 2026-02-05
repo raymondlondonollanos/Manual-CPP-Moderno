@@ -1,0 +1,98 @@
+\chapter{Archivos y Persistencia de Datos}
+
+\section{Introducción a fstream}
+Hasta ahora, todos los datos se pierden al cerrar el programa. Para guardarlos permanentemente (persistencia), escribimos en el disco duro.
+Usamos la librería \texttt{<fstream>} (File Stream), que maneja el flujo de datos hacia archivos.
+
+\begin{itemize}
+    \item \textbf{std::ofstream:} (Output) Para escribir.
+    \item \textbf{std::ifstream:} (Input) Para leer.
+    \item \textbf{std::fstream:} Para lectura y escritura a la vez.
+\end{itemize}
+
+\section{Escribiendo en Archivos}
+Funciona casi igual que \texttt{std::cout}.
+
+\begin{codebox}
+\begin{lstlisting}
+#include <fstream>
+#include <iostream>
+
+int main() {
+    // 1. Abrir el archivo (se crea si no existe)
+    std::ofstream archivo("notas.txt");
+
+    // 2. Verificar si se abrio correctamente
+    if (archivo.is_open()) {
+        archivo << "Lista de Tareas:\n";
+        archivo << "1. Aprender C++\n";
+        archivo << "2. Dominar Punteros\n";
+        
+        // 3. Cerrar (Buena practica, aunque el destructor lo hace)
+        archivo.close();
+        std::cout << "Guardado con exito.";
+    } else {
+        std::cerr << "Error al crear el archivo.";
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Leyendo Archivos}
+Leemos línea por línea o palabra por palabra.
+
+\begin{codebox}
+\begin{lstlisting}
+#include <string>
+
+int main() {
+    std::ifstream lectura("notas.txt");
+    std::string linea;
+
+    if (lectura.is_open()) {
+        // while(getline) lee hasta que se acabe el archivo
+        while (std::getline(lectura, linea)) {
+            std::cout << "Leido: " << linea << "\n";
+        }
+        lectura.close();
+    } else {
+        std::cerr << "No encuentro el archivo.";
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Modos de Apertura (Flags)}
+A veces no queremos borrar lo que había antes. Usamos banderas (flags) para controlar cómo se abre el archivo.
+
+\begin{itemize}
+    \item \texttt{std::ios::app} (Append): Escribe al final sin borrar.
+    \item \texttt{std::ios::binary}: Modo binario (imágenes, audio).
+\end{itemize}
+
+\begin{codebox}
+\begin{lstlisting}
+// Abre en modo Append (anadir al final)
+std::ofstream log("registro.txt", std::ios::app);
+log << "Nuevo evento registrado.\n";
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+\section{Evaluación Profesional}
+
+\subsection{Preguntas de Ingeniería}
+\begin{enumerate}
+    \item \textbf{Buffer:} ¿Qué significa que la escritura en disco tiene "buffer"? ¿Por qué el texto no aparece inmediatamente en el archivo?
+    \item \textbf{Rutas:} ¿Cuál es la diferencia entre una ruta relativa ("datos.txt") y una absoluta ("C:/Usuarios/...")?
+    \item \textbf{Binario vs Texto:} ¿Por qué no deberías abrir una imagen JPG en modo texto predeterminado?
+\end{enumerate}
+
+\subsection{Retos}
+\begin{enumerate}
+    \item **Logger:** Crea una función `log(mensaje)` que escriba errores en un archivo sin borrar los anteriores.
+    \item **Configuración:** Lee un archivo `config.txt` que tenga `puerto=8080` y extrae el número.
+    \item **Copia:** Haz un programa que copie un archivo origen a uno destino byte por byte.
+\end{enumerate}

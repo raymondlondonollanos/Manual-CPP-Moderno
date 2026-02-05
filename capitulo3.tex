@@ -1,0 +1,31 @@
+\chapter{Tu Primer Programa}
+
+\section{Hola Mundo en C++}
+Vamos a escribir el programa más famoso de la historia.
+
+\begin{codebox}
+\begin{lstlisting}
+#include <iostream>
+
+int main() {
+    std::cout << "Hola Mundo!" << std::endl;
+    return 0;
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Análisis del Código}
+
+\subsection{La cabecera include}
+\texttt{\#include <iostream>} le dice al compilador que queremos usar la librería de entrada y salida (Input Output Stream). Sin esto, no podemos usar \texttt{cout}.
+
+\subsection{La función main}
+Todo programa en C++ comienza en la función \texttt{main}. Es el punto de entrada.
+\begin{itemize}
+    \item Devuelve un entero (\texttt{int}).
+    \item Si devuelve 0, significa "Exito".
+    \item Si devuelve otro número, significa "Error".
+\end{itemize}
+
+\subsection{std::cout}
+Significa "Character Output". Se usa con el operador de inserción \texttt{<{}<} para enviar texto a la consola.

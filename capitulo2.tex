@@ -1,0 +1,31 @@
+\chapter{Configuración del Entorno}
+
+\section{El Compilador}
+El compilador es el programa encargado de traducir tu código C++ (humanamente legible) a código máquina (binario).
+
+Los tres más populares son:
+\begin{itemize}
+    \item \textbf{GCC (GNU Compiler Collection):} El estándar en Linux.
+    \item \textbf{MSVC (Microsoft Visual C++):} El estándar en Windows (Visual Studio).
+    \item \textbf{Clang:} Muy usado en Mac y Android.
+\end{itemize}
+
+\section{El IDE (Entorno de Desarrollo)}
+Aunque puedes usar el Bloc de Notas, se recomienda un IDE profesional.
+
+\subsection{Visual Studio Code (Recomendado)}
+Es ligero, gratuito y tiene excelentes extensiones para C++.
+Pasos básicos:
+\begin{enumerate}
+    \item Descargar VS Code desde la web oficial.
+    \item Instalar la extensión "C/C++" de Microsoft.
+    \item Instalar un compilador (MinGW en Windows o g++ en Linux).
+\end{enumerate}
+
+\section{Proceso de Compilación}
+El proceso tiene 3 etapas:
+\begin{enumerate}
+    \item \textbf{Preprocesado:} Maneja los \#include y comentarios.
+    \item \textbf{Compilación:} Crea archivos objeto (.o / .obj).
+    \item \textbf{Enlazado (Linker):} Junta todo en un ejecutable (.exe).
+\end{enumerate}

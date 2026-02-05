@@ -1,0 +1,138 @@
+\chapter{Proyecto Integrador: Sistema de Biblioteca}
+
+\section{El Objetivo}
+Vamos a construir un software completo que gestione una biblioteca. El sistema debe permitir:
+\begin{itemize}
+    \item Agregar libros nuevos.
+    \item Listar todos los libros.
+    \item Guardar la base de datos en un archivo.
+    \item Cargar la base de datos al iniciar.
+\end{itemize}
+
+\section{Diseño de la Clase Libro}
+Usaremos una clase simple para representar cada libro.
+
+\begin{codebox}
+\begin{lstlisting}
+#include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <memory> // Para smart pointers
+
+class Libro {
+public:
+    std::string titulo;
+    std::string autor;
+    int anio;
+
+    Libro(std::string t, std::string a, int y) 
+        : titulo(t), autor(a), anio(y) {}
+
+    void mostrar() const {
+        std::cout << "Titulo: " << titulo 
+                  << " | Autor: " << autor 
+                  << " (" << anio << ")\n";
+    }
+};
+\end{lstlisting}
+\end{codebox}
+
+\section{El Gestor (La Lógica)}
+Esta clase manejará la lista de libros usando un vector de punteros inteligentes.
+
+\begin{codebox}
+\begin{lstlisting}
+class Biblioteca {
+private:
+    // Vector de punteros unicos a Libros
+    std::vector<std::unique_ptr<Libro>> estanteria;
+
+public:
+    void agregarLibro() {
+        std::string t, a;
+        int y;
+        
+        std::cout << "Ingrese Titulo: ";
+        std::cin.ignore(); 
+        std::getline(std::cin, t);
+        
+        std::cout << "Ingrese Autor: ";
+        std::getline(std::cin, a);
+        
+        std::cout << "Ingrese Anio: ";
+        std::cin >> y;
+
+        // Creamos el libro directo en el vector
+        estanteria.push_back(std::make_unique<Libro>(t, a, y));
+        std::cout << "Libro agregado con exito!\n";
+    }
+
+    void listarLibros() {
+        if (estanteria.empty()) {
+            std::cout << "La biblioteca esta vacia.\n";
+            return;
+        }
+        
+        std::cout << "\n--- Catalogo ---\n";
+        for (const auto& libro : estanteria) {
+            libro->mostrar();
+        }
+        std::cout << "----------------\n";
+    }
+
+    void guardarEnDisco() {
+        std::ofstream archivo("biblioteca.txt");
+        if (archivo.is_open()) {
+            for (const auto& libro : estanteria) {
+                // Formato CSV simple: Titulo|Autor|Anio
+                archivo << libro->titulo << "|" 
+                        << libro->autor << "|" 
+                        << libro->anio << "\n";
+            }
+            std::cout << "Datos guardados en biblioteca.txt\n";
+        } else {
+            std::cerr << "Error al guardar archivo.\n";
+        }
+    }
+};
+\end{lstlisting}
+\end{codebox}
+
+\section{El Menú Principal}
+Finalmente, conectamos todo en el main.
+
+\begin{codebox}
+\begin{lstlisting}
+int main() {
+    Biblioteca biblio;
+    int opcion = 0;
+
+    while (opcion != 4) {
+        std::cout << "\n1. Agregar Libro\n";
+        std::cout << "2. Listar Libros\n";
+        std::cout << "3. Guardar y Salir\n";
+        std::cout << "Seleccione: ";
+        std::cin >> opcion;
+
+        switch (opcion) {
+            case 1: biblio.agregarLibro(); break;
+            case 2: biblio.listarLibros(); break;
+            case 3: 
+                biblio.guardarEnDisco(); 
+                opcion = 4; // Salir
+                break;
+            default: std::cout << "Opcion invalida.\n";
+        }
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Reto Final}
+Tu misión para obtener el título de Desarrollador C++ Junior:
+\begin{enumerate}
+    \item Implementa la función \texttt{cargarDesdeDisco()} para que al abrir el programa, lea el archivo "biblioteca.txt" y reconstruya los objetos Libro en el vector. (Pista: usa \texttt{getline} con delimitador '|').
+    \item Añade una opción para buscar un libro por título.
+\end{enumerate}

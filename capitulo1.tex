@@ -1,0 +1,42 @@
+\chapter{Introducción a C++}
+
+\section{¿Qué es C++? ¿Por qué usar C++ Moderno?}
+
+\subsection{¿Qué es C++?}
+C++ es un lenguaje de programación de propósito general que combina la eficiencia y las capacidades de bajo nivel de C con características avanzadas como la programación orientada a objetos (POO), programación genérica y programación funcional.
+
+Fue creado por \textbf{Bjarne Stroustrup} en 1979 en los laboratorios Bell como una extensión del lenguaje C. Su objetivo era añadir características de POO a C sin sacrificar su rendimiento ni flexibilidad.
+
+\begin{itemize}
+    \item \textbf{Eficiencia:} Permite un control granular sobre los recursos del sistema.
+    \item \textbf{Flexibilidad:} Soporta múltiples paradigmas de programación.
+    \item \textbf{Compatibilidad:} Mantiene compatibilidad con C y estándares antiguos.
+\end{itemize}
+
+\subsection{¿Por qué usar C++ Moderno?}
+El término "C++ Moderno" se refiere a los estándares introducidos a partir de C++11 (C++14, C++17, C++20, C++23). Estos estándares han transformado el lenguaje haciéndolo más seguro, expresivo y fácil de usar.
+
+\subsubsection{Mejora en Legibilidad y Expresividad}
+Una de las mejoras más notables es la palabra clave \texttt{auto}, que deduce automáticamente el tipo de una variable:
+
+\begin{lstlisting}[language=C++, caption=Ejemplo de auto en C++]
+auto x = 42; // x se deduce como int
+auto nombre = "C++"; // nombre se deduce como const char*
+\end{lstlisting}
+
+\subsubsection{Seguridad y Gestión de Memoria}
+El C++ Moderno introduce los \textbf{Punteros Inteligentes} (Smart Pointers), que gestionan la memoria automáticamente:
+
+\begin{lstlisting}[language=C++, caption=Uso de unique\_ptr]
+#include <memory>
+std::unique_ptr<int> ptr = std::make_unique<int>(42);
+// No es necesario borrar ptr manualmente; se limpia solo.
+\end{lstlisting}
+
+\section{Historia de C++ y la Evolución de los Estándares}
+\subsection{Desde C++11 hasta C++23}
+\begin{itemize}
+    \item \textbf{C++11:} El gran salto. Introdujo \texttt{auto}, lambdas y punteros inteligentes.
+    \item \textbf{C++14 y C++17:} Refinamientos, algoritmos paralelos y \texttt{std::filesystem}.
+    \item \textbf{C++20:} Una revolución con "Concepts", "Coroutines" y "Modules".
+\end{itemize}

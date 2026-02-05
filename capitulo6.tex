@@ -1,0 +1,38 @@
+\chapter{Funciones y Modularidad}
+
+\section{Conceptos Básicos}
+Las funciones nos permiten reutilizar código y dividir problemas complejos.
+
+\begin{codebox}
+\begin{lstlisting}
+// Tipo Nombre(Parametros) { Cuerpo }
+
+int sumar(int a, int b) {
+    return a + b;
+}
+
+void saludar() {
+    std::cout << "Hola desde una funcion!";
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Paso de Parámetros}
+
+\subsection{Paso por Valor}
+Se crea una copia. El original no cambia.
+
+\begin{codebox}
+\begin{lstlisting}
+void intento(int x) { x = 100; } // No afecta al original
+\end{lstlisting}
+\end{codebox}
+
+\subsection{Paso por Referencia (\&)}
+Se accede a la variable original.
+
+\begin{codebox}
+\begin{lstlisting}
+void cambiar(int& x) { x = 100; } // Si afecta al original
+\end{lstlisting}
+\end{codebox}

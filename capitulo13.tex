@@ -1,0 +1,70 @@
+\chapter{La STL: Algoritmos y Lambdas}
+
+\section{La Filosofía de la STL}
+No reinventes la rueda. Antes de escribir un bucle para buscar u ordenar, revisa la librería \texttt{<algorithm>}.
+
+\section{Algoritmos Comunes}
+\begin{codebox}
+\begin{lstlisting}
+#include <algorithm>
+#include <vector>
+#include <iostream>
+
+int main() {
+    std::vector<int> nums = {5, 2, 9, 1};
+
+    // Ordenar (Sort)
+    std::sort(nums.begin(), nums.end()); 
+
+    // Buscar (Find)
+    auto it = std::find(nums.begin(), nums.end(), 9);
+    
+    if (it != nums.end()) {
+        std::cout << "Encontrado: " << *it;
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Lambdas (Funciones Anónimas)}
+Son funciones pequeñas escritas "al vuelo".
+\texttt{[](params) \{ cuerpo \}}
+
+\begin{codebox}
+\begin{lstlisting}
+std::vector<int> datos = {1, 2, 3};
+int multiplicador = 10;
+
+// [=] captura variables externas por copia
+std::for_each(datos.begin(), datos.end(), [=](int n) {
+    std::cout << n * multiplicador << " ";
+});
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+\section{Evaluación Profesional}
+
+\subsection{Ejercicios}
+\begin{enumerate}
+    \item **Sort Personalizado:** Ordena un vector de mayor a menor usando una lambda.
+    \item **Filtrado:** Usa \texttt{std::copy\_if} para copiar solo números pares.
+    \item **Búsqueda Avanzada:** Usa \texttt{std::find\_if} para encontrar el primer número mayor a 100.
+    \item **Transformación:** Usa \texttt{std::transform} para convertir strings a mayúsculas.
+    \item **Contador:** Cuenta cuántos negativos hay con \texttt{std::count\_if}.
+\end{enumerate}
+
+\subsection{Revisión de Código}
+\begin{codebox}
+\begin{lstlisting}
+std::vector<int> v = {1, 2, 3};
+// std::sort(v.begin(), v.begin()); 
+// Error: Rango vacio o invalido.
+
+auto it = std::find(v.begin(), v.end(), 5);
+// std::cout << *it; 
+// Error: Si no lo encuentra, it es v.end().
+// Dereferenciar end() es comportamiento indefinido.
+\end{lstlisting}
+\end{codebox}

@@ -1,0 +1,151 @@
+\chapter{Clases y Objetos (POO)}
+
+\section{Introducción a la POO}
+La Programación Orientada a Objetos (POO) es un paradigma que nos permite organizar el código modelando cosas de la vida real.
+
+\textbf{La Analogía del Plano y la Casa:}
+\begin{itemize}
+    \item \textbf{Clase (Class):} Es el \textit{plano} o molde. Define cómo debe ser algo (propiedades y acciones), pero no existe físicamente.
+    \item \textbf{Objeto (Object):} Es la \textit{casa} construida usando el plano. Es una instancia real que ocupa memoria.
+\end{itemize}
+
+\section{Creando una Clase}
+En C++, usamos la palabra clave \texttt{class}. Una clase tiene **Atributos** (variables) y **Métodos** (funciones).
+
+\begin{codebox}
+\begin{lstlisting}
+class Jugador {
+public:
+    // Atributos (Estado)
+    std::string nombre;
+    int salud;
+    int nivel;
+
+    // Metodos (Comportamiento)
+    void saludar() {
+        std::cout << "Hola, soy " << nombre << "\n";
+    }
+}; // IMPORTANTE: Punto y coma al final
+\end{lstlisting}
+\end{codebox}
+
+\section{Instanciando Objetos}
+Una vez tenemos el plano, podemos crear objetos en el \texttt{main}.
+
+\begin{codebox}
+\begin{lstlisting}
+int main() {
+    // Crear objeto (Instanciar)
+    Jugador p1;
+    p1.nombre = "Mario";
+    p1.salud = 100;
+    
+    // Usar sus metodos
+    p1.saludar(); // Imprime: Hola, soy Mario
+    return 0;
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Control de Acceso (Encapsulamiento)}
+Es la práctica de ocultar los datos internos para protegerlos.
+\begin{itemize}
+    \item \textbf{public:} Accesible desde cualquier parte.
+    \item \textbf{private:} Accesible SOLO desde dentro de la clase.
+\end{itemize}
+
+\begin{codebox}
+\begin{lstlisting}
+class CuentaBancaria {
+private:
+    double saldo; // Nadie puede tocar esto directamente
+
+public:
+    void depositar(double cantidad) {
+        if (cantidad > 0) {
+            saldo += cantidad; // Solo modificamos si es valido
+        }
+    }
+};
+\end{lstlisting}
+\end{codebox}
+
+\section{Constructores}
+El constructor es un método especial que se ejecuta automáticamente cuando nace el objeto. Se usa para inicializar valores. Se llama igual que la clase.
+
+\begin{codebox}
+\begin{lstlisting}
+class Coche {
+public:
+    std::string marca;
+    int year;
+
+    // Constructor
+    Coche(std::string m, int y) {
+        marca = m;
+        year = y;
+        std::cout << "Coche creado!\n";
+    }
+};
+
+int main() {
+    // Se llama al constructor aqui
+    Coche miAuto("Toyota", 2022); 
+}
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+\section{Evaluación y Práctica Profesional}
+
+\subsection{Conceptos de Ingeniería (5 Preguntas)}
+\begin{enumerate}
+    \item Explica con tus palabras la diferencia entre Clase y Objeto.
+    \item ¿Por qué es buena práctica declarar los atributos como \texttt{private} (Encapsulamiento)?
+    \item ¿Qué es el puntero \texttt{this} dentro de una clase?
+    \item ¿Qué características especiales tiene un Constructor (nombre y tipo de retorno)?
+    \item Diferencia técnica entre \texttt{struct} y \texttt{class} en C++ (Pista: visibilidad por defecto).
+\end{enumerate}
+
+\subsection{Retos de Desarrollo (10 Ejercicios)}
+\begin{enumerate}
+    \item Crea una clase \texttt{Gato} con atributos nombre y edad, y método \texttt{maullar()}.
+    \item Implementa una clase \texttt{Rectangulo} con constructor que reciba ancho y alto, y un método para calcular el área.
+    \item **Validación:** Crea una clase \texttt{Persona} con edad privada. El método \texttt{setEdad} debe rechazar números negativos.
+    \item Crea un vector de objetos \texttt{Estudiante}. Agrega 3 estudiantes y recórrelo.
+    \item Implementa una clase \texttt{Libro} que imprima "Titulo: X, Autor: Y".
+    \item **Sobrecarga de Constructores:** Crea una clase con dos constructores distintos (uno vacío y otro con parámetros).
+    \item **RPG:** Crea una clase \texttt{Enemigo} con vida. Crea un método \texttt{recibirDano(int)} que reste vida y avise si murió.
+    \item Crea una clase \texttt{Calculadora} con métodos sumar, restar, multiplicar y dividir.
+    \item Simula un cajero automático simple usando una clase \texttt{Cuenta} con métodos retirar e ingresar.
+    \item **Destructor:** Implementa un destructor (\texttt{\~Clase}) que imprima un mensaje cuando el objeto sea destruido.
+\end{enumerate}
+
+\subsection{Revisión de Código (Auditoría)}
+\begin{codebox}
+\begin{lstlisting}
+// Caso 1: Acceso Privado
+class Caja {
+    int secreto; // Private por defecto
+public:
+    void abrir() {}
+};
+int main() {
+    Caja c;
+    // c.secreto = 10; // Error: Inaccesible
+}
+
+// Caso 2: Constructor Mal Formado
+class Auto {
+public:
+    // void Auto() {} // Error: Constructor no lleva void
+    Auto() {} // Correcto
+};
+
+// Caso 3: Instancia Incorrecta
+int main() {
+    // Robot r(); // Error: Esto declara una funcion, no un objeto
+    // Robot r;   // Correcto
+}
+\end{lstlisting}
+\end{codebox}

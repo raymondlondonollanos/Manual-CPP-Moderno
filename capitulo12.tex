@@ -1,0 +1,74 @@
+\chapter{Templates y Programación Genérica}
+
+\section{¿Qué son los Templates?}
+Los **Templates** (Plantillas) permiten escribir código que funciona con cualquier tipo de dato. Es la base de la STL.
+
+\section{Funciones Template}
+Usamos la palabra clave \texttt{template}.
+
+\begin{codebox}
+\begin{lstlisting}
+// T representa "Cualquier Tipo"
+template <typename T>
+T sumar(T a, T b) {
+    return a + b;
+}
+
+int main() {
+    std::cout << sumar(10, 20);      // T es int
+    std::cout << sumar(1.5, 2.5);    // T es double
+    // sumar(10, 2.5); // Error: Ambiguedad
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Clases Template}
+\begin{codebox}
+\begin{lstlisting}
+template <typename T>
+class Caja {
+    T contenido;
+public:
+    Caja(T valor) : contenido(valor) {}
+    T obtener() { return contenido; }
+};
+
+int main() {
+    Caja<int> cajaInt(100);
+    Caja<std::string> cajaTexto("Hola");
+}
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+\section{Evaluación Profesional}
+
+\subsection{Ejercicios}
+\begin{enumerate}
+    \item **Intercambio:** Implementa tu propia función \texttt{mi\_swap<T>}.
+    \item **Buscador:** Crea una función que busque un valor \texttt{T} en un vector.
+    \item **Calculadora:** Crea una clase \texttt{Calculadora<T>} con métodos sumar y restar.
+    \item **Par:** Implementa una clase \texttt{Par<K, V>} para guardar clave y valor.
+    \item **Promedio:** Crea una función que reciba un vector de \texttt{T} y devuelva el promedio (cuidado con los tipos).
+\end{enumerate}
+
+\subsection{Revisión de Código}
+\begin{codebox}
+\begin{lstlisting}
+template <typename T> 
+T max(T a, T b) { return (a>b)?a:b; }
+
+int main() {
+    // std::cout << max(10, 5.5); 
+    // Error: T no puede ser int y double a la vez.
+    // Solucion: max<double>(10, 5.5);
+}
+
+template <typename T>
+void imprimir(T obj) { std::cout << obj; }
+
+struct Perro {};
+// imprimir(Perro()); 
+// Error: cout no sabe como imprimir un Perro
+\end{lstlisting}
+\end{codebox}

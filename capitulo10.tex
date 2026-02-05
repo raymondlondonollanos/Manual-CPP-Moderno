@@ -1,0 +1,94 @@
+\chapter{Herencia y Polimorfismo}
+
+\section{Herencia: Reutilizando Código}
+La herencia nos permite crear nuevas clases basadas en clases existentes.
+
+\begin{codebox}
+\begin{lstlisting}
+// Clase Base
+class Personaje {
+public:
+    std::string nombre;
+    void moverse() { std::cout << "Moviendose..."; }
+};
+
+// Clase Derivada
+class Mago : public Personaje {
+public:
+    void lanzarHechizo() { std::cout << "Fuego!"; }
+};
+\end{lstlisting}
+\end{codebox}
+
+\section{Polimorfismo y Virtual}
+El polimorfismo permite tratar a objetos diferentes como si fueran lo mismo.
+Usamos la palabra clave \texttt{virtual}.
+
+\begin{codebox}
+\begin{lstlisting}
+class Animal {
+public:
+    virtual void hacerSonido() {
+        std::cout << "Sonido generico...\n";
+    }
+};
+
+class Perro : public Animal {
+public:
+    void hacerSonido() override {
+        std::cout << "Guau!\n";
+    }
+};
+\end{lstlisting}
+\end{codebox}
+
+\section{Clases Abstractas}
+Son clases que no se pueden instanciar. Tienen al menos una función virtual pura.
+
+\begin{codebox}
+\begin{lstlisting}
+class Forma {
+public:
+    virtual double area() = 0; // Metodo puro
+};
+
+class Circulo : public Forma {
+    double r;
+public:
+    double area() override { return 3.14 * r * r; }
+};
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+\section{Evaluación y Práctica Profesional}
+
+\subsection{Ejercicios}
+\begin{enumerate}
+    \item Diferencia entre herencia Pública, Privada y Protegida.
+    \item ¿Para qué sirve la palabra clave \texttt{override}?
+    \item ¿Por qué el Destructor base debe ser \texttt{virtual}?
+    \item ¿Qué es una Tabla Virtual (vtable)?
+    \item ¿Se puede instanciar una clase abstracta?
+    \item **Sistema:** Crea una base \texttt{Empleado} y derivadas \texttt{Gerente} y \texttt{Obrero}.
+    \item **Geometría:** Implementa \texttt{Forma} abstracta y clases hijas.
+    \item **Vehículos:** Jerarquía \texttt{Vehiculo} con método \texttt{conducir()}.
+    \item **Vector Polimórfico:** Crea un \texttt{vector} de punteros inteligentes \texttt{unique\_ptr} a Animal.
+    \item **Constructores:** Llama al constructor del padre desde el hijo.
+\end{enumerate}
+
+\subsection{Revisión de Código}
+\begin{codebox}
+\begin{lstlisting}
+class Base { 
+    ~Base() {} // Error: Debe ser virtual
+};
+
+class Derivada : public Base {
+    ~Derivada() { /* Limpieza */ }
+};
+
+Base* p = new Derivada();
+delete p; // Error: No llama al destructor de Hija
+\end{lstlisting}
+\end{codebox}

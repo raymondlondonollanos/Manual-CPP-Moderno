@@ -1,0 +1,81 @@
+\chapter{Manejo de Errores y Excepciones}
+
+\section{El Problema de los Errores}
+En el estilo antiguo (C), las funciones devolvían códigos de error. C++ utiliza **Excepciones**. Cuando algo sale mal, la función "lanza" (\textit{throw}) un problema, y alguien más arriba debe "atraparlo" (\textit{catch}).
+
+\section{Sintaxis Básica: try, catch, throw}
+\begin{enumerate}
+    \item \textbf{try:} Envuelve el código peligroso.
+    \item \textbf{throw:} Se ejecuta cuando detectamos el error.
+    \item \textbf{catch:} Maneja el error.
+\end{enumerate}
+
+\begin{codebox}
+\begin{lstlisting}
+#include <iostream>
+#include <stdexcept>
+
+double dividir(double numerador, double denominador) {
+    if (denominador == 0) {
+        throw std::runtime_error("Error: Division por cero!");
+    }
+    return numerador / denominador;
+}
+
+int main() {
+    try {
+        double resultado = dividir(10, 0);
+        std::cout << resultado;
+    } 
+    catch (const std::runtime_error& e) {
+        std::cerr << "Ocurrio un problema: " << e.what();
+    }
+    return 0;
+}
+\end{lstlisting}
+\end{codebox}
+
+\section{Desenrollado de Pila (Stack Unwinding)}
+Cuando se lanza una excepción, C++ destruye todas las variables locales hasta encontrar un \texttt{catch}.
+
+\begin{codebox}
+\begin{lstlisting}
+void funcionPeligrosa() {
+    // Si hay error, este unique_ptr se libera solo
+    // std::unique_ptr<int> ptr...
+    throw std::runtime_error("Fallo critico");
+}
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+\section{Evaluación Profesional}
+
+\subsection{Ejercicios}
+\begin{enumerate}
+    \item **División Segura:** Crea una función que lance \texttt{std::invalid\_argument} si divides por 0.
+    \item **Acceso Vectorial:** Intenta acceder al índice 10 de un vector de 3 elementos usando \texttt{.at()}. Captura \texttt{out\_of\_range}.
+    \item **Memory Leak Check:** Usa un puntero crudo y lanza una excepción antes del delete. Comprueba la fuga. Luego soluciónalo con \texttt{unique\_ptr}.
+    \item **Rethrow (Relanzar):** Captura una excepción, imprime un log y vuelve a lanzarla usando \texttt{throw;} sin argumentos.
+    \item **Constructor Fallido:** Crea una clase que lance error en su constructor.
+\end{enumerate}
+
+\subsection{Revisión de Código}
+\begin{codebox}
+\begin{lstlisting}
+try { 
+    // Codigo...
+} 
+catch (std::exception e) { 
+    // Error: Falta & (Slicing) y const
+    std::cout << e.what(); 
+}
+
+try { 
+    // Codigo...
+}
+catch (std::exception& e) { } // Generico
+catch (std::runtime_error& e) { } // Especifico
+// Error: El generico atrapa todo primero. Orden incorrecto.
+\end{lstlisting}
+\end{codebox}

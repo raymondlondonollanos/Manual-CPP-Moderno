@@ -1,0 +1,123 @@
+\chapter{Arrays y Vectores: Manejo de Colecciones}
+
+\section{Introducción}
+Hasta ahora, si queriamos guardar las notas de 20 estudiantes, teniamos que crear 20 variables distintas. Eso es inmanejable.
+En C++, usamos **contenedores** para almacenar multiples valores bajo un mismo nombre.
+
+\section{std::vector (La Navaja Suiza)}
+El \texttt{std::vector} es un array dinamico. A diferencia de los arrays antiguos de C, el vector conoce su propio tamaño, puede crecer y encogerse, y gestiona la memoria por ti. Es la coleccion por defecto en C++ Moderno.
+
+Para usarlo: \texttt{\#include <vector>}
+
+\subsection{Declaración e Inicialización}
+
+\begin{codebox}
+\begin{lstlisting}
+#include <vector>
+#include <iostream>
+
+int main() {
+    // 1. Vector vacio de enteros
+    std::vector<int> numeros;
+
+    // 2. Vector inicializado con valores
+    std::vector<int> primos = {2, 3, 5, 7, 11};
+
+    // 3. Vector de tamano 10, todo inicializado a 0
+    std::vector<int> ceros(10, 0);
+    
+    return 0;
+}
+\end{lstlisting}
+\end{codebox}
+
+\subsection{Operaciones Básicas}
+El vector tiene metodos muy utiles.
+
+\begin{codebox}
+\begin{lstlisting}
+std::vector<std::string> frutas;
+
+// push_back: Agrega elementos al final de la lista
+frutas.push_back("Manzana");
+frutas.push_back("Banana");
+frutas.push_back("Uva");
+
+// Acceso: Se usa el indice comenzando en 0
+std::cout << "Primera fruta: " << frutas[0]; // Manzana
+
+// size: Devuelve la cantidad de elementos
+std::cout << "Total: " << frutas.size();
+
+// pop_back: Elimina el ultimo elemento
+frutas.pop_back(); // Adios "Uva"
+\end{lstlisting}
+\end{codebox}
+
+\section{std::array (La Alternativa Fija)}
+Introducido en C++11, \texttt{std::array} reemplaza a los arrays estilo C.
+Su tamaño es **fijo** y debe conocerse al compilar.
+
+\begin{codebox}
+\begin{lstlisting}
+#include <array>
+
+// Sintaxis: std::array<Tipo, Tamano> nombre;
+std::array<int, 3> coordenadas = {10, 20, 30};
+
+std::cout << coordenadas[1]; // 20
+
+// coordenadas.push_back(40); // ERROR: No puede cambiar de tamano
+\end{lstlisting}
+\end{codebox}
+
+\section{Iterando sobre Colecciones}
+La mejor forma de recorrer un vector o array es con el **bucle for basado en rangos**.
+
+\begin{codebox}
+\begin{lstlisting}
+std::vector<int> notas = {85, 90, 78};
+
+// Estilo moderno y seguro:
+for (int nota : notas) {
+    std::cout << nota << " ";
+}
+\end{lstlisting}
+\end{codebox}
+
+\newpage
+\section{Evaluación y Práctica Profesional}
+
+\subsection{Conceptos de Ingeniería (5 Preguntas)}
+\begin{enumerate}
+    \item \textbf{Vector vs Array:} ¿En qué escenario específico preferirías usar un \texttt{std::array} sobre un \texttt{std::vector}?
+    \item \textbf{Seguridad:} ¿Qué sucede si intentas acceder al índice 10 de un vector que solo tiene 5 elementos?
+    \item \textbf{Complejidad:} ¿Cuál es el costo computacional de insertar un elemento al final de un vector (\texttt{push\_back})?
+    \item \textbf{Capacidad:} Explica la diferencia entre \texttt{.size()} y \texttt{.capacity()}.
+    \item \textbf{Base-Zero:} ¿Por qué los índices en C++ empiezan en 0?
+\end{enumerate}
+
+\subsection{Retos de Desarrollo (10 Ejercicios)}
+\begin{enumerate}
+    \item Declara un \texttt{vector} vacío y llénalo con los números del 1 al 100.
+    \item Crea un vector de \texttt{string} con nombres de ciudades.
+    \item **Suma:** Crea una función que reciba un \texttt{const std::vector<int>\&} y devuelva la suma.
+    \item **Máximo:** Encuentra el número más grande dentro de un vector.
+    \item **Matriz:** Crea un vector de vectores para representar una matriz de 3x3.
+    \item **Filtrado:** Crea un vector nuevo que contenga solo los números pares del original.
+    \item **Inversión:** Imprime un vector desde el último elemento hasta el primero.
+    \item Usa \texttt{std::array} para representar un punto 3D (x, y, z).
+    \item **Validación:** Escribe un programa que pida notas (0-10) hasta que el usuario escriba -1.
+    \item **Copia:** Copia el contenido de un vector A a un vector B manualmente.
+\end{enumerate}
+
+\subsection{Revisión de Código}
+\begin{codebox}
+\begin{lstlisting}
+std::vector<int> v = {1, 2, 3};
+// std::cout << v[5]; // ERROR: Acceso fuera de limites
+
+std::array<int, 3> a = {1, 2, 3};
+// a.push_back(4); // ERROR: array no tiene push_back
+\end{lstlisting}
+\end{codebox}
