@@ -8,7 +8,7 @@ Este repositorio contiene el código fuente LaTeX y el material educativo de mi 
 ## 🚀 Descarga el Libro
 Puedes descargar la última versión en PDF totalmente gratis aquí:
 
-👉 **[DESCARGAR MANUAL COMPLETO (PDF)](https://github.com/https://github.com/raymondlondonollanos/Manual-CPP-Moderno/releases/latest/download/main.pdf)**
+👉 **[DESCARGAR MANUAL COMPLETO (PDF)](https://github.com/raymondlondonollanos/Manual-CPP-Moderno/releases/tag/v1.0.0)**
 
 ---
 
